@@ -9,23 +9,26 @@ const Login = ({ onLogin }) => {
     setIsLoading(true);
     
     // Simulate login process
-    setTimeout(() => {
-      // Yahan aap apne hisab se email aur password set kar sakte hain
-      if (data.email === "admin@gmail.com" && data.password === "admin3131") {
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('user', JSON.stringify({
-          name: 'Admin User',
-          email: data.email,
-          role: 'admin'
-        }));
-        onLogin(true);
-      } else {
-        alert('Invalid email or password! Please check your credentials.');
-      }
-      setIsLoading(false);
-    }, 1000);
-  };
+  setTimeout(() => {
+  if (data.email && data.password) {
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem(
+      'user',
+      JSON.stringify({
+        name: data.email.split('@')[0], // email se naam
+        email: data.email,
+        role: 'admin'
+      })
+    );
+    onLogin(true);
+  } else {
+    alert('Please enter email and password');
+  }
 
+  setIsLoading(false);
+}, 1000);
+
+  }
   return (
     <div className="container-fluid vh-100" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
       <div className="row h-100 justify-content-center align-items-center">
